@@ -1,19 +1,10 @@
 import React from 'react';
-import reactDOM from 'react-dom';
+import MainContainer from './containers/MainContainer.jsx';
 
-class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {}
-  }
-
-  render() {
-
-    return <div>Hello World!</div>
-
-  }
-}
-
-reactDOM.render(<App />, document.getElementById('root'))
+const App = () => (
+  <div id="app">
+    <MainContainer />
+  </div>
+);
 
 export default App;

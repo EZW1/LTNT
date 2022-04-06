@@ -65,7 +65,7 @@ app.post('/createUser',
   }
 );
 
-app.post('/login', 
+app.post('/tryLogin', 
   userController.verifyUser, 
   (req, res) => {
     return res.status(200).send('successful login');

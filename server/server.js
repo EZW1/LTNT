@@ -66,7 +66,8 @@ app.post('/createUser',
 );
 
 app.post('/tryLogin', 
-  userController.verifyUser, 
+  userController.verifyUser,
+  cookieController.setSSIDCookie, 
   (req, res) => {
     return res.status(200).send('successful login');
   }

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = 10;
+const dotenv = require('dotenv').config();
 
-const MONGO_URI = 'mongodb+srv://ericCodesmith:CL082I9tVMkU5bY5@cluster0.grozs.mongodb.net/LTNT?retryWrites=true&w=majority';
+const MONGO_URI = process.env.DB_URL;
 
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI

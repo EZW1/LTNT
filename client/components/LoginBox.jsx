@@ -15,7 +15,7 @@ const LoginContainer = props => (
         <input type="password" name="password" className="login-input" placeholder="Password" />
       </div>
       <button type="button" className="login-btn" onClick={() => {
-        props.submitDetails(
+        props.submitLogin(
           {
             username: document.querySelector('div.input-group input[name=\'username\']').value, 
             password: document.querySelector('div.input-group input[name=\'password\']').value

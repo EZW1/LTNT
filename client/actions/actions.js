@@ -14,12 +14,22 @@ export const switchToRegister = () => {
   }
 };
 
-export const submitDetails = details => (dispatch) => {
+export const submitLogin = details => (dispatch) => {
   const { username, password } = details;
   console.log(username, password);
   axios.post('/tryLogin', {username, password})
     .then(({ status }) => {
-      if (status === 200) dispatch({ type: types.SUBMIT_DETAILS });
+      if (status === 200) dispatch({ type: types.SUBMIT_LOGIN });
+    })
+    .catch(console.error);
+};
+
+export const submitRegister = details => (dispatch) => {
+  const { username, password } = details;
+  console.log(username, password);
+  axios.post('/createUser', {username, password})
+    .then(({ status }) => {
+      if (status === 200) dispatch({ type: types.SUBMIT_REGISTER });
     })
     .catch(console.error);
 };

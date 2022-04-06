@@ -85,7 +85,7 @@ userController.verifyUser = (req, res, next) => {
           });
         } else {
           if (isMatch) {
-            // console.log('successful login');
+            console.log('successful login');
             return next();
           } else {
             // console.log('isMatch false');

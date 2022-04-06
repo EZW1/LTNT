@@ -12,7 +12,8 @@ const mapStateToProps = ({ login }) => ({
 const mapDispatchToProps = dispatch => ({
   switchToLogin: () => dispatch(actions.switchToLogin()),
   switchToRegister: () => dispatch(actions.switchToRegister()),
-  submitDetails: (details) => dispatch(actions.submitDetails(details))
+  submitLogin: (details) => dispatch(actions.submitLogin(details)),
+  submitRegister: (details) => dispatch(actions.submitRegister(details)),
 });
 
 const LoginContainer = props => (
@@ -28,8 +29,8 @@ const LoginContainer = props => (
     <div className="box-container">
       {`isLoginOpen: ${props.isLoginOpen} ------- `}
       {`isRegisterOpen: ${props.isRegisterOpen}`}
-      {props.isLoginOpen && <LoginBox submitDetails={props.submitDetails}/>}
-      {props.isRegisterOpen && <RegisterBox submitDetails={props.submitDetails}/>}
+      {props.isLoginOpen && <LoginBox submitLogin={props.submitLogin}/>}
+      {props.isRegisterOpen && <RegisterBox submitRegister={props.submitRegister}/>}
     </div>
   </div>
 );

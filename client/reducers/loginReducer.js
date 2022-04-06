@@ -4,6 +4,7 @@ import * as types from '../constants/actionTypes.js';
 const initialState = {
   isLoginOpen: true, 
   isRegisterOpen: false,
+  isActiveSession: false,
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -18,7 +19,7 @@ const mainReducer = (state = initialState, action) => {
         return {isLoginOpen: false, isRegisterOpen: true}
       };
 
-    case types.SUBMIT_DETAILS:
+    case types.SUBMIT_LOGIN:
       {
         
       }

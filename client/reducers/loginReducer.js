@@ -1,13 +1,14 @@
-
 import * as types from '../constants/actionTypes.js';
+import axios from 'axios';
 
 const initialState = {
   isLoginOpen: true, 
   isRegisterOpen: false,
-  isActiveSession: false,
+  isActiveSession: true,
+  doneLoading: false,
 };
 
-const mainReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SWITCH_TO_LOGIN:
       {
@@ -19,14 +20,19 @@ const mainReducer = (state = initialState, action) => {
         return {isLoginOpen: false, isRegisterOpen: true}
       };
 
-    case types.SUBMIT_LOGIN:
+    case types.UPDATE_SESSION:
       {
-        
+        return {
+          ...state,
+          doneLoading: true,
+          isActiveSession: action.payload,
+        }
       }
 
-    default:
-      return state;
+    default: 
+      return state
+
   }
 };
 
-export default mainReducer;
+export default loginReducer;

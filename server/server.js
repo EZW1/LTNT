@@ -42,6 +42,28 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'))
 });
 
+app.get('/testRoute',
+  (req, res, next) => {
+    console.log('test route');
+    console.log(req.cookies.ssid);
+    next();
+  },
+  (req, res) => {
+    return res.status(200).json({test: 'hi'})
+  }
+)
+
+app.get('/checkSession',
+  (req, res, next) => {
+    console.log('check session route');
+    next();
+  },
+  sessionController.isLoggedIn,
+  (req, res) => {
+    return res.status(200).json(res.locals.sessionStatus)
+  }
+)
+
 app.get('/getAllUsers', 
   userController.getAllUsers, 
   (req, res) => {
@@ -68,6 +90,7 @@ app.post('/createUser',
 app.post('/tryLogin', 
   userController.verifyUser,
   cookieController.setSSIDCookie, 
+  sessionController.startSession,
   (req, res) => {
     return res.status(200).send('successful login');
   }

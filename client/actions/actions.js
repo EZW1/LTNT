@@ -19,7 +19,7 @@ export const submitLogin = details => (dispatch) => {
   console.log(username, password);
   axios.post('/tryLogin', {username, password})
     .then(({ status }) => {
-      if (status === 200) dispatch({ type: types.SUBMIT_LOGIN });
+      if (status === 200) dispatch({ type: types.UPDATE_SESSION });
     })
     .catch(console.error);
 };
@@ -29,7 +29,25 @@ export const submitRegister = details => (dispatch) => {
   console.log(username, password);
   axios.post('/createUser', {username, password})
     .then(({ status }) => {
-      if (status === 200) dispatch({ type: types.SUBMIT_REGISTER });
+      if (status === 200) dispatch({ type: types.UPDATE_SESSION });
     })
     .catch(console.error);
+};
+
+export const checkSession = () => (dispatch) => {
+  axios.get('/checkSession')
+  .then(response => {
+    console.log('done checkSession', response)
+    dispatch({
+      type: types.UPDATE_SESSION,
+      payload: response.data.isActiveSession,
+    })
+  })
+};
+
+export const updateSession = (session) => {
+  return {
+    type: types.UPDATE_SESSION,
+    payload: session,
+  }
 };

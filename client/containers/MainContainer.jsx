@@ -1,23 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-// import TotalsDisplay from '../components/TotalsDisplay';
+import axios from 'axios';
 import LoginContainer from './LoginContainer.jsx';
-// import * as actions from '../actions/actions';
+import HomeContainer from './HomeContainer.jsx';
+import LoadingPage from '../components/LoadingPage.jsx';
+import * as actions from '../actions/actions.js';
 
-// const mapStateToProps = state => ({
+const mapStateToProps = ({login}) => ({
+  isActiveSession: login.isActiveSession,
+  doneLoading: login.doneLoading,
+});
 
-// });
+const mapDispatchToProps = dispatch => ({
+  updateSession: (loggedIn) => dispatch(actions.updateSession(loggedIn)),
+  checkSession: () => dispatch(actions.checkSession()),
+});
 
-// const mapDispatchToProps = dispatch => ({
-
-// });
-
-const MainContainer = props => (
+const MainContainer = props => {
+  useEffect(() => {
+    props.checkSession()
+  })
+  return (
   <div className="container">
     <div className="outerBox">
-      <LoginContainer />
+      {!props.doneLoading && <LoadingPage />}
+      {props.doneLoading && props.isActiveSession && <HomeContainer />}
+      {props.doneLoading && !props.isActiveSession && <LoginContainer />}
     </div>
   </div>
-);
+  )
+};
 
-export default connect(null, null)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

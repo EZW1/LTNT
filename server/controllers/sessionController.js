@@ -7,25 +7,30 @@ const sessionController = {};
  * verify whether or not the session is still valid.
  */
 sessionController.isLoggedIn = (req, res, next) => {
-  if (req.cookies['ssid']) {
-    Session.findOne({ cookieId: req.cookies['ssid'] }, (err, result) => {
-      if (err) next(res.redirect('/login'));
-      else {
-        console.log('result._doc.cookieId', result._doc.cookieId);
+  if (req.cookies.ssid) {
+    Session.findOne({ cookieId: req.cookies.ssid }, (err, result) => {
+      if (err) {
+        console.log('error in findOne session')
+        res.locals.sessionStatus = {isActiveSession: false}
+        next();
+      } else {
         //see if res has the same value as the req cookies ssid
         //if it is, means session is still active/ user is authenticated
-        if (result._doc.cookieId === req.cookies['ssid']) {
-          console.log('ssid found');
-          next();
-        } else {
-          console.log('ssid not found');
-          res.redirect('/login');
-        }
+        // if (result._doc.cookieId === req.cookies['ssid']) {
+        console.log('ssid found');
+        console.log('result',  result)
+        console.log('req.cookies.ssid', req.cookies.ssid)
+        // } else {
+        if (result) res.locals.sessionStatus = {isActiveSession: result.cookieId === req.cookies.ssid};
+        else res.locals.sessionStatus = {isActiveSession: false};
+        // }
+        next();
       }
     });
   } else {
     console.log('no ssid cookie in req header')
-    res.redirect('/login');
+    res.locals.sessionStatus = {isActiveSession: false}
+    next();
   }
 };
 

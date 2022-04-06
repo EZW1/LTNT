@@ -6,18 +6,25 @@ const initialState = {
   isRegisterOpen: false,
   isActiveSession: true,
   doneLoading: false,
+  ssid: '',
 };
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SWITCH_TO_LOGIN:
       {
-        return {isLoginOpen: true, isRegisterOpen: false}
+        return {
+          ...state,
+          isLoginOpen: true, 
+          isRegisterOpen: false}
       };
 
     case types.SWITCH_TO_REGISTER:
       {
-        return {isLoginOpen: false, isRegisterOpen: true}
+        return {
+          ...state,
+          isLoginOpen: false, 
+          isRegisterOpen: true}
       };
 
     case types.UPDATE_SESSION:
@@ -25,13 +32,13 @@ const loginReducer = (state = initialState, action) => {
         return {
           ...state,
           doneLoading: true,
-          isActiveSession: action.payload,
+          isActiveSession: action.payload.isActiveSession,
+          ssid: action.payload.ssid,
         }
       }
 
     default: 
       return state
-
   }
 };
 

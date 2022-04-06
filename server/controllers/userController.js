@@ -41,43 +41,23 @@ userController.getAllUsers = (req, res, next) => {
   )
 }
 
-userController.getAllFriends = (req, res, next) => {
-  console.log('GET ALL FRIENDS FIRED');
-  const { id } = req.body
-  User.findOne({_id: id})
-  .then (user => {
-    console.log(user)
-    // store retrieved users into res.locals and move on to next middleware
-    res.locals.friends = user.friends;
-    return next();
-  })
-  .catch(err => next({
-    log: 'getAllUsers middleware error',
-    status: 400,
-    message: { err }, 
-  })
-  )
-}
+
 
 userController.verifyUser = (req, res, next) => {
   // write code here
   const { username, password } = req.body; // {username: testing, password: password}
-  console.log(username, password);
   User.findOne({ username })
     .then((result) => {
       if (!result) {
-        // console.log('result falsey');
         return next({
           log: 'no result',
           status: 400,
           message: { err }, 
         })
       }
-      console.log('database password', result._doc.password);
       res.locals.id = result._id;
       result.comparePassword(password, function (err, isMatch) {
         if (err) {
-          // console.log('comparePassword err');
           return next({
             log: 'comparePassword error',
             status: 400,
@@ -88,7 +68,6 @@ userController.verifyUser = (req, res, next) => {
             console.log('successful login');
             return next();
           } else {
-            // console.log('isMatch false');
             return next({
               log: 'wrong password',
               status: 400,

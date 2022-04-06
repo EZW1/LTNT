@@ -31,7 +31,7 @@ app.use(express.json());
 /**
  * handle requests for static files
  */
-app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 /**
  * define route handlers
@@ -54,10 +54,6 @@ app.get('/testRoute',
 )
 
 app.get('/checkSession',
-  (req, res, next) => {
-    console.log('check session route');
-    next();
-  },
   sessionController.isLoggedIn,
   (req, res) => {
     return res.status(200).json(res.locals.sessionStatus)
@@ -71,19 +67,20 @@ app.get('/getAllUsers',
   }
 );
 
-app.get('/showFriends', 
-  userController.getAllFriends, 
+app.get('/showFriends?:id', 
+  friendController.getAllFriends, 
   (req, res) => {
     return res.status(200).json(res.locals.friends)
   }
 );
 
-
-
 app.post('/createUser', 
   userController.createUser, 
   (req, res) => {
-    return res.status(200).json(res.locals.id)
+    return res.status(200).json({
+      isActiveSession: true,
+      ssid: res.locals.id
+    })
   }
 );
 
@@ -92,12 +89,15 @@ app.post('/tryLogin',
   cookieController.setSSIDCookie, 
   sessionController.startSession,
   (req, res) => {
-    return res.status(200).send('successful login');
+    return res.status(200).json({
+      isActiveSession: true,
+      ssid: res.locals.id,
+    });
   }
 );
 
 app.post('/addFriend',
-  userController.getAllFriends, 
+  friendController.getAllFriends, 
   friendController.addFriend,
   (req, res) => {
     return res.status(200).json(res.locals.updatedFriends)

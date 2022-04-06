@@ -8,7 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
-  mode: 'development',
+  mode: 'production',
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/index.html'
@@ -34,7 +34,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname),
+      directory: path.join(__dirname, './build'),
       publicPath: '/',
     },
     proxy: {

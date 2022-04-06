@@ -8,3 +8,6 @@ export const SWITCH_TO_LOGIN = 'SWITCH_TO_LOGIN';
 export const SWITCH_TO_REGISTER = 'SWITCH_TO_REGISTER';
 export const CHECK_SESSION = 'CHECK_SESSION';
 export const UPDATE_SESSION = 'UPDATE_SESSION';
+
+export const SYNC_FRIENDS = 'SYNC_FRIENDS';
+// export const ADD_FRIEND = 'ADD_FRIEND';

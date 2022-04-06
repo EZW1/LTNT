@@ -17,11 +17,11 @@ sessionController.isLoggedIn = (req, res, next) => {
         //see if res has the same value as the req cookies ssid
         //if it is, means session is still active/ user is authenticated
         // if (result._doc.cookieId === req.cookies['ssid']) {
-        console.log('ssid found');
-        console.log('result',  result)
-        console.log('req.cookies.ssid', req.cookies.ssid)
         // } else {
-        if (result) res.locals.sessionStatus = {isActiveSession: result.cookieId === req.cookies.ssid};
+        if (result) res.locals.sessionStatus = {
+          isActiveSession: result.cookieId === req.cookies.ssid,
+          ssid: result.cookieId,
+        };
         else res.locals.sessionStatus = {isActiveSession: false};
         // }
         next();

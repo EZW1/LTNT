@@ -16,20 +16,24 @@ export const switchToRegister = () => {
 
 export const submitLogin = details => (dispatch) => {
   const { username, password } = details;
-  console.log(username, password);
   axios.post('/tryLogin', {username, password})
-    .then(({ status }) => {
-      if (status === 200) dispatch({ type: types.UPDATE_SESSION });
+    .then(response => {
+      if (response.status === 200) dispatch({
+        type: types.UPDATE_SESSION,
+        payload: response.data,
+      });
     })
     .catch(console.error);
 };
 
 export const submitRegister = details => (dispatch) => {
   const { username, password } = details;
-  console.log(username, password);
   axios.post('/createUser', {username, password})
-    .then(({ status }) => {
-      if (status === 200) dispatch({ type: types.UPDATE_SESSION });
+    .then(response => {
+      if (response.status === 200) dispatch({
+        type: types.UPDATE_SESSION,
+        payload: response.data,
+      });
     })
     .catch(console.error);
 };
@@ -37,10 +41,9 @@ export const submitRegister = details => (dispatch) => {
 export const checkSession = () => (dispatch) => {
   axios.get('/checkSession')
   .then(response => {
-    console.log('done checkSession', response)
     dispatch({
       type: types.UPDATE_SESSION,
-      payload: response.data.isActiveSession,
+      payload: response.data,
     })
   })
 };

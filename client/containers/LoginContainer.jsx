@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LoginBox from '../components/LoginBox.jsx';
 import RegisterBox from '../components/RegisterBox.jsx';
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/loginActions.js';
 
 const mapStateToProps = ({ login }) => ({
   isLoginOpen: login.isLoginOpen,

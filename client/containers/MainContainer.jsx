@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import LoginContainer from './LoginContainer.jsx';
 import HomeContainer from './HomeContainer.jsx';
 import LoadingPage from '../components/LoadingPage.jsx';
-import * as actions from '../actions/actions.js';
+import * as actions from '../actions/loginActions.js';
 
 const mapStateToProps = ({login}) => ({
   isActiveSession: login.isActiveSession,
@@ -12,14 +11,11 @@ const mapStateToProps = ({login}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateSession: (loggedIn) => dispatch(actions.updateSession(loggedIn)),
-  checkSession: () => dispatch(actions.checkSession()),
+  // updateSession: (loggedIn) => dispatch(actions.updateSession(loggedIn)),
+  // checkSession: () => dispatch(actions.checkSession()),
 });
 
 const MainContainer = props => {
-  useEffect(() => {
-    props.checkSession()
-  })
   return (
   <div className="container">
     <div className="outerBox">

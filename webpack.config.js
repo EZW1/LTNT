@@ -2,19 +2,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './client/index.js',
+  entry: path.join(__dirname, './client/index.jsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/',
     filename: 'bundle.js',
   },
-  mode: process.env.NODE_ENV,
+  mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
-      template: './client/index.html',
-    }),
-  ],
+      template: './client/index.html'
+    })
+  ], 
   module: {
     rules: [
       {
@@ -28,13 +26,9 @@ module.exports = {
         }
       }, {
         test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
-      }
-    ]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
   },
   devServer: {
     static: {

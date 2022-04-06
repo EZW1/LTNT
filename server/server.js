@@ -13,6 +13,9 @@ app.use(cookieParser());
  * require controllers
  */
 const userController = require('./controllers/userController');
+const friendController = require('./controllers/friendController');
+const cookieController = require('./controllers/cookieController');
+const sessionController = require('./controllers/sessionController');
 
 /**
  * require routers
@@ -46,12 +49,14 @@ app.get('/getAllUsers',
   }
 );
 
-app.get('/getAllFriends', 
+app.get('/showFriends', 
   userController.getAllFriends, 
   (req, res) => {
     return res.status(200).json(res.locals.friends)
   }
 );
+
+
 
 app.post('/createUser', 
   userController.createUser, 
@@ -60,12 +65,21 @@ app.post('/createUser',
   }
 );
 
-app.post('/verifyUser', 
+app.post('/login', 
   userController.verifyUser, 
   (req, res) => {
-    return res.status(200).send('correct login')
+    return res.status(200).send('successful login');
   }
 );
+
+app.post('/addFriend',
+  userController.getAllFriends, 
+  friendController.addFriend,
+  (req, res) => {
+    return res.status(200).json(res.locals.updatedFriends)
+  }
+)
+
 
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => res.sendStatus(404));

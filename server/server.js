@@ -103,6 +103,20 @@ app.post('/addFriend',
   }
 )
 
+app.post('/deleteFriend',
+  friendController.deleteFriend,
+  (req, res) => {
+    return res.status(200).json(res.locals.newFriends)
+  }
+)
+
+app.post('/editFriend',
+  friendController.editFriend,
+  (req, res) => {
+    return res.status(200).json(res.locals.updatedFriends)
+  }
+)
+
 
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => res.sendStatus(404));

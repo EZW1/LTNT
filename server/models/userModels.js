@@ -25,6 +25,7 @@ const userSchema = new Schema({
     name: String,
     followUp: String,
     timeLeft: String,
+    frequency: String,
   }]
 });
 

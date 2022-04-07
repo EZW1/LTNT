@@ -14,24 +14,19 @@ const mapStateToProps = ({ login, home }) => ({
 const mapDispatchToProps = dispatch => ({
   syncFriends: (friends) => dispatch(actions.syncFriends(friends)),
   addFriend: (friend) => dispatch(actions.addFriend(friend)),
+  deleteFriend: (friend) => dispatch(actions.deleteFriend(friend)),
+  editFriend: (friend) => dispatch(actions.editFriend(friend)),
 });
 
 const HomeContainer = props => {
   useEffect(() => {
-    axios.get('/showFriends', {
-      params: {
-        id: props.ssid
-      }
-    })
-      .then(resp => {
-        props.syncFriends(resp.data)
-      })
+    axios.get('/showFriends', {params: {id: props.ssid}})
+      .then(resp => {props.syncFriends(resp.data)})
     }, [])
   
   const friendsArray = [];
-  // console.log('props.friends', props.friends)
   props.friends.map(friend => {
-    friendsArray.push(<FriendRow name={friend.name} timeLeft={friend.followUp} />)
+    friendsArray.push(<FriendRow ssid={props.ssid} friendId={friend._id} name={friend.name} timeLeft={friend.timeLeft} deleteFriend={props.deleteFriend} editFriend={props.editFriend} friends={props.friends} />)
   })
 
   return (

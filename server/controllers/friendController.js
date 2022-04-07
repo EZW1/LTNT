@@ -122,6 +122,7 @@ friendController.editFriend = (req, res, next) => {
   }
 
   for (let i = 0; i < friends.length; i++) {
+    console.log(friends[i]._id, friendId)
     if (friends[i]._id === friendId) {
       friends[i].frequency = frequency;
       friends[i].followUp = date;

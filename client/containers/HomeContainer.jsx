@@ -26,7 +26,7 @@ const HomeContainer = props => {
   
   const friendsArray = [];
   props.friends.map(friend => {
-    friendsArray.push(<FriendRow ssid={props.ssid} friendId={friend._id} name={friend.name} timeLeft={friend.timeLeft} deleteFriend={props.deleteFriend} editFriend={props.editFriend} friends={props.friends} />)
+    friendsArray.push(<FriendRow key={friend._id} ssid={props.ssid} friendId={friend._id} name={friend.name} timeLeft={friend.timeLeft} deleteFriend={props.deleteFriend} editFriend={props.editFriend} friends={props.friends} />)
   })
 
   return (

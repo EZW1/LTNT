@@ -27,8 +27,6 @@ const LoginContainer = props => (
       </div>
     </div>
     <div className="box-container">
-      {`isLoginOpen: ${props.isLoginOpen} ------- `}
-      {`isRegisterOpen: ${props.isRegisterOpen}`}
       {props.isLoginOpen && <LoginBox submitLogin={props.submitLogin}/>}
       {props.isRegisterOpen && <RegisterBox submitRegister={props.submitRegister}/>}
     </div>

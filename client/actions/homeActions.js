@@ -8,16 +8,14 @@ export const syncFriends = (friends) => {
   }
 };
 
-// export const addFriend = (friend) => (dispatch) => {
-//   const { name, ssid } = friend;
-//   console.log(name, ssid);
-//   axios.post('/tryLogin', {username, password})
-//     .then(response => {
-//       console.log('response data', response.data);
-//       if (response.status === 200) dispatch({
-//         type: types.ADD_FRIEND,
-//         payload: response.data,
-//       });
-//     })
-//     .catch(console.error);
-// };
+export const addFriend = (friend) => (dispatch) => {
+  const { name, id, friends, frequency } = friend;
+  axios.post('/addFriend', {name, id, friends, frequency})
+    .then(response => {
+      if (response.status === 200) dispatch({
+        type: types.ADD_FRIEND,
+        payload: response.data,
+      });
+    })
+    .catch(console.error);
+};

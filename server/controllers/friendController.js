@@ -3,10 +3,9 @@ const { User } = require("../models/userModels");
 const friendController = {};
 
 friendController.getAllFriends = (req, res, next) => {
-  const { id } = req.query
+  const { id } = req.query;
   User.findOne({_id: id})
   .then (user => {
-    console.log(user.friends)
     // store retrieved users into res.locals and move on to next middleware
     res.locals.friends = user.friends;
     return next();
@@ -20,9 +19,41 @@ friendController.getAllFriends = (req, res, next) => {
 }
 
 friendController.addFriend = (req, res, next) => {
-  friends = res.locals.friends;
-  const { name, id } = req.body;
-  friends.push({name});
+  const { name, id, friends, frequency} = req.body;
+  let date = new Date();
+  switch(frequency) {
+    case 'daily': 
+      date.setDate(date.getDate() + 1)
+      break
+    case 'weekly': 
+      date.setDate(date.getDate() + 7);
+      break
+    case 'biweekly': 
+      date.setDate(date.getDate() + 14);
+      break
+    case 'monthly': 
+      date.setMonth(date.getMonth() + 1);
+      break
+    case 'bimonthly': 
+      date.setMonth(date.getMonth() + 2);
+      break
+    case 'quarterannually': 
+      date.setMonth(date.getMonth() + 4);
+      break
+    case 'semiannually': 
+      date.setMonth(date.getMonth() + 6);
+      break
+    case 'yearly': 
+      date.setFullYear(date.getFullYear() + 1);
+      break
+    default: break;
+  }
+  friends.push({name, followUp: date});
+  friends.sort((a, b) => Date.parse(a.followUp) - Date.parse(b.followUp))
+
+  // friends.push({name});
+  res.locals.updatedFriends = friends;
+
   User.updateOne({_id: id}, {
     $set: {friends}
   })

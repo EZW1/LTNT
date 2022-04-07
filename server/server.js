@@ -97,7 +97,6 @@ app.post('/tryLogin',
 );
 
 app.post('/addFriend',
-  friendController.getAllFriends, 
   friendController.addFriend,
   (req, res) => {
     return res.status(200).json(res.locals.updatedFriends)

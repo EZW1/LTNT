@@ -1,0 +1,32 @@
+body {
+  background: pink;
+}
+
+.settingBtn {
+  float: right;
+  height: 100%;
+  display:flex;
+  flex-grow:1;
+
+}
+
+.friendLabel {
+  float: left;
+  margin-left: 10px;
+  display:flex;
+  flex-grow: 200;
+}
+
+.timeLeftLabel {
+  display:flex;
+  flex-grow: 50;
+}
+
+.friendUnit {
+  background-color: white;
+  display: flex;
+  text-align: left;
+  margin: 15px;
+  width: 40%;
+  height: 3rem;
+}

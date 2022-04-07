@@ -19,11 +19,11 @@ const mapDispatchToProps = dispatch => ({
 const LoginContainer = props => (
   <div className="root-container">
     <div className="box-controller">
-      <div className={"controller"} >
-        <button onClick={props.switchToLogin}>Login</button>
+      <div className={"controller " + (props.isLoginOpen ? "selected-controller" : "")} onClick={props.switchToLogin}>
+        Login
       </div>
-      <div className={"controller"}>
-      <button onClick={props.switchToRegister}>Register</button>
+      <div className={"controller " + (props.isRegisterOpen ? "selected-controller" : "")} onClick={props.switchToRegister}>
+        Register
       </div>
     </div>
     <div className="box-container">

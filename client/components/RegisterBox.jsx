@@ -6,7 +6,7 @@ const RegisterBox = props => (
       Register
     </div>
     <div className="box">
-    <div className="input-group">
+      <div className="input-group namebox">
         <label htmlFor="name"></label>
         <input type="text" name="name" className="login-input" placeholder="Name" />
       </div>
@@ -25,7 +25,10 @@ const RegisterBox = props => (
             username: document.querySelector('div.input-group input[name=\'username\']').value, 
             password: document.querySelector('div.input-group input[name=\'password\']').value
           }
-        )}}>Register</button>
+        )}}>
+
+        Register
+      </button>
     </div>
   </div>
 );

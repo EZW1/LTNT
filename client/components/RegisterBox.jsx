@@ -6,6 +6,10 @@ const RegisterBox = props => (
       Register
     </div>
     <div className="box">
+    <div className="input-group">
+        <label htmlFor="name"></label>
+        <input type="text" name="name" className="login-input" placeholder="Name" />
+      </div>
       <div className="input-group">
         <label htmlFor="username"></label>
         <input type="text" name="username" className="login-input" placeholder="Username" />
@@ -17,6 +21,7 @@ const RegisterBox = props => (
       <button type="button" className="login-btn" onClick={() => {
         props.submitRegister(
           {
+            name: document.querySelector('div.input-group input[name=\'name\']').value,
             username: document.querySelector('div.input-group input[name=\'username\']').value, 
             password: document.querySelector('div.input-group input[name=\'password\']').value
           }

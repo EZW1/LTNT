@@ -42,17 +42,6 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'))
 });
 
-app.get('/testRoute',
-  (req, res, next) => {
-    console.log('test route');
-    console.log(req.cookies.ssid);
-    next();
-  },
-  (req, res) => {
-    return res.status(200).json({test: 'hi'})
-  }
-)
-
 app.get('/checkSession',
   sessionController.isLoggedIn,
   (req, res) => {
@@ -70,7 +59,7 @@ app.get('/getAllUsers',
 app.get('/showFriends?:id', 
   friendController.getAllFriends, 
   (req, res) => {
-    return res.status(200).json(res.locals.friends)
+    return res.status(200).json(res.locals.userData)
   }
 );
 
@@ -79,7 +68,8 @@ app.post('/createUser',
   (req, res) => {
     return res.status(200).json({
       isActiveSession: true,
-      ssid: res.locals.id
+      ssid: res.locals.id,
+      name: res.locals.name,
     })
   }
 );
@@ -92,6 +82,7 @@ app.post('/tryLogin',
     return res.status(200).json({
       isActiveSession: true,
       ssid: res.locals.id,
+      name: res.locals.name,
     });
   }
 );
@@ -103,19 +94,27 @@ app.post('/addFriend',
   }
 )
 
-app.post('/deleteFriend',
+app.put('/deleteFriend',
   friendController.deleteFriend,
   (req, res) => {
     return res.status(200).json(res.locals.newFriends)
   }
 )
 
-app.post('/editFriend',
+app.put('/editFriend',
   friendController.editFriend,
   (req, res) => {
     return res.status(200).json(res.locals.updatedFriends)
   }
 )
+
+app.put('/editFriendName',
+  friendController.editFriendName,
+  (req, res) => {
+    return res.status(200).json(res.locals.updatedFriends)
+  }
+)
+
 
 
 // catch-all route handler for any requests to an unknown route

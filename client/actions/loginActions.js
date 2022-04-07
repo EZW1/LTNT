@@ -27,8 +27,8 @@ export const submitLogin = details => (dispatch) => {
 };
 
 export const submitRegister = details => (dispatch) => {
-  const { username, password } = details;
-  axios.post('/createUser', {username, password})
+  const { username, password, name } = details;
+  axios.post('/createUser', {username, password, name})
     .then(response => {
       if (response.status === 200) dispatch({
         type: types.UPDATE_SESSION,
@@ -46,11 +46,4 @@ export const checkSession = () => (dispatch) => {
       payload: response.data,
     })
   })
-};
-
-export const updateSession = (session) => {
-  return {
-    type: types.UPDATE_SESSION,
-    payload: session,
-  }
 };

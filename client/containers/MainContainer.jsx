@@ -10,10 +10,8 @@ const mapStateToProps = ({login}) => ({
   doneLoading: login.doneLoading,
 });
 
-const mapDispatchToProps = dispatch => ({
-  // updateSession: (loggedIn) => dispatch(actions.updateSession(loggedIn)),
-  // checkSession: () => dispatch(actions.checkSession()),
-});
+// const mapDispatchToProps = dispatch => ({
+// });
 
 const MainContainer = props => {
   return (
@@ -27,4 +25,4 @@ const MainContainer = props => {
   )
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default connect(mapStateToProps, null)(MainContainer);

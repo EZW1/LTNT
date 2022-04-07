@@ -3,12 +3,10 @@ import React from 'react';
 const AddFriendPopup = props => (
   <div className="inner-container">
     <div className="header">
-      
     </div>
     <div className="box">
       <div className="input-group">
-        <label htmlFor="username"></label>
-        <input type="text" name="friendName" className="login-input" placeholder="Name" />
+        <input type="text" name="friendName" className="add-friend-input" placeholder="Name of Friend" />
       </div>
       <div className="input-group">
         <select name="frequency" id="frequency">

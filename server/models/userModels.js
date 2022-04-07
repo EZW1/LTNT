@@ -19,6 +19,7 @@ const Schema = mongoose.Schema;
 
 // sets a schema for the 'users' collection
 const userSchema = new Schema({
+  name: {type: String, require: true},
   username: {type: String, require: true, unique: true},
   password: {type: String, require: true},
   friends: [{

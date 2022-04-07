@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const sessionSchema = new Schema({
   cookieId: { type: String, required: true, unique: true },
-  createdAt: { type: Date, expires: 30000, default: Date.now }
+  createdAt: { type: Date, default: Date.now, expires: 12000 },
 });
 
 module.exports = mongoose.model('Session', sessionSchema);

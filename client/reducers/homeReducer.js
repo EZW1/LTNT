@@ -8,7 +8,7 @@ const homeReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case types.SYNC_FRIENDS: {
-      const newFriends = action.payload
+      const newFriends = action.payload;
       const today = new Date();
       const milliIn1Day = 86350000;
 

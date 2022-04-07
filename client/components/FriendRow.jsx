@@ -12,16 +12,24 @@ const LoginContainer = props => (
     </div>
     <div className="settingBtn">
       <Popup trigger={<button>:</button>} position="right center"> 
-        <div>
+        <div className="deleteBtnContainer">
           <button onClick={() => props.deleteFriend({
             friends: props.friends,
             friendId: props.friendId,
             ssid: props.ssid,
             })}>Delete Friend</button>
         </div>
+        <div className="updateNameBtnContainer">
+          <input type="text" name="friendName" className="edit-friend-input" placeholder="Name" />
+          <button onClick={() => props.editFriendName({
+            friends: props.friends,
+            friendId: props.friendId,
+            ssid: props.ssid,
+            newName: document.querySelector('input.edit-friend-input').value,
+            })}>Edit Name</button>
+        </div>
         <div className="editPeriod">
           <div className="input-group">
-
             <select name="frequency" id="frequency">
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>

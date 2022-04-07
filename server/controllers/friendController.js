@@ -7,7 +7,8 @@ friendController.getAllFriends = (req, res, next) => {
   User.findOne({_id: id})
   .then (user => {
     // store retrieved users into res.locals and move on to next middleware
-    res.locals.friends = user.friends;
+    const { friends, name } = user;
+    res.locals.userData = {friends, name}
     return next();
   })
   .catch(err => next({
@@ -48,14 +49,17 @@ friendController.addFriend = (req, res, next) => {
       break
     default: break;
   }
-  friends.push({name, followUp: date, frequency});
-  friends.sort((a, b) => Date.parse(a.followUp) - Date.parse(b.followUp))
-  res.locals.updatedFriends = friends;
+  friends.push({name, followUp: date.toDateString(), frequency});
+  // console.log('friends', friends);  
 
-  User.updateOne({_id: id}, {
-    $set: {friends}
-  })
-  .then (() => {
+  User.findOneAndUpdate(
+    {_id: id}, 
+    {$set: {friends}}, 
+    {new: true, projection: {_id: 0, "friends": 1}, }, 
+  )
+  .then (result => {
+    // console.log(newFriends);
+    res.locals.updatedFriends = result.friends.sort((a, b) => Date.parse(a.followUp) - Date.parse(b.followUp));
     return next();
   })
   .catch(err => next({
@@ -122,7 +126,6 @@ friendController.editFriend = (req, res, next) => {
   }
 
   for (let i = 0; i < friends.length; i++) {
-    console.log(friends[i]._id, friendId)
     if (friends[i]._id === friendId) {
       friends[i].frequency = frequency;
       friends[i].followUp = date;
@@ -130,6 +133,36 @@ friendController.editFriend = (req, res, next) => {
   }
 
   friends.sort((a, b) => Date.parse(a.followUp) - Date.parse(b.followUp))
+
+  res.locals.updatedFriends = friends;
+
+  User.updateOne({_id: ssid}, {
+    $set: {friends}
+  })
+  .then (() => {
+    return next();
+  })
+  .catch(err => next({
+    log: 'addFriend middleware error',
+    status: 400,
+    message: { err }, 
+  })
+  )
+};
+
+friendController.editFriendName = (req, res, next) => {
+  const { friends, ssid, friendId, newName } = req.body;
+
+  // console.log(friends)
+  console.log(newName)
+
+  for (let i = 0; i < friends.length; i++) {
+    if (friends[i]._id === friendId) {
+      friends[i].name = newName;
+    };
+  }
+
+  // console.log(friends)
 
   res.locals.updatedFriends = friends;
 

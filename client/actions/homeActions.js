@@ -8,6 +8,13 @@ export const syncFriends = (friends) => {
   }
 };
 
+export const syncName = (name) => {
+  return {
+    type: types.SYNC_NAME,
+    payload: name,
+  }
+};
+
 export const addFriend = (friend) => (dispatch) => {
   const { name, id, friends, frequency } = friend;
   axios.post('/addFriend', {name, id, friends, frequency})
@@ -22,7 +29,7 @@ export const addFriend = (friend) => (dispatch) => {
 
 export const deleteFriend = (friend) => (dispatch) => {
   const { friendId, friends, ssid } = friend;
-  axios.post('/deleteFriend', {ssid, friends, friendId})
+  axios.put('/deleteFriend', {ssid, friends, friendId})
     .then(response => {
       if (response.status === 200) dispatch({
         type: types.SYNC_FRIENDS,
@@ -34,7 +41,21 @@ export const deleteFriend = (friend) => (dispatch) => {
 
 export const editFriend = (friend) => (dispatch) => {
   const { friendId, friends, ssid, frequency } = friend;
-  axios.post('/editFriend', {ssid, friends, friendId, frequency})
+  axios.put('/editFriend', {ssid, friends, friendId, frequency})
+    .then(response => {
+      if (response.status === 200) dispatch({
+        type: types.SYNC_FRIENDS,
+        payload: response.data,
+      });
+    })
+    .catch(console.error);
+};
+
+export const editFriendName = (friend) => (dispatch) => {
+  const { friendId, friends, ssid, newName } = friend;
+  console.log(newName)
+  console.log('/editFriendName');
+  axios.put('/editFriendName', {ssid, friends, friendId, newName})
     .then(response => {
       if (response.status === 200) dispatch({
         type: types.SYNC_FRIENDS,

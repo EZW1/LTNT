@@ -7,6 +7,7 @@ const sessionController = {};
  * verify whether or not the session is still valid.
  */
 sessionController.isLoggedIn = (req, res, next) => {
+  // console.log(req.cookies.ssid)
   if (req.cookies.ssid) {
     Session.findOne({ cookieId: req.cookies.ssid }, (err, result) => {
       if (err) {
@@ -21,6 +22,7 @@ sessionController.isLoggedIn = (req, res, next) => {
         if (result) res.locals.sessionStatus = {
           isActiveSession: result.cookieId === req.cookies.ssid,
           ssid: result.cookieId,
+          
         };
         else res.locals.sessionStatus = {isActiveSession: false};
         // }
@@ -38,7 +40,7 @@ sessionController.isLoggedIn = (req, res, next) => {
  * startSession - create and save a new Session into the database.
  */
 sessionController.startSession = async (req, res, next) => {
-  const session = await Session.findOne({ cookieId: res.locals.id })
+  const session = await Session.findOne({ cookieId: res.locals.id }, { expireAfterSeconds: 20})
   if (!session) {
     Session.create({ cookieId: res.locals.id })
       .then(() => next())

@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes.js';
 import axios from 'axios';
 
 const initialState = {
+  name: '',
   isLoginOpen: true, 
   isRegisterOpen: false,
   isActiveSession: true,
@@ -34,6 +35,16 @@ const loginReducer = (state = initialState, action) => {
           doneLoading: true,
           isActiveSession: action.payload.isActiveSession,
           ssid: action.payload.ssid,
+          name: action.payload.name,
+        }
+      }
+
+    case types.SYNC_NAME:
+      {
+        const name = action.payload;
+        return {
+          ...state,
+          name,
         }
       }
 
